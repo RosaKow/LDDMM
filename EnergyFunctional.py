@@ -44,12 +44,12 @@ class Energy(Operator):
         
     def _call(self, X):    
         
-        norm = odl.solvers.L2NormSquared(X[1].space)
+        norm_v = odl.solvers.L2NormSquared(X[1].space)
         
         Imv = self.Shooting(X)
         I1 = Imv[0]
         
-        return self.reg_param * self.attach(I1[-1]) + norm(X[1])
+        return self.reg_param/2 * self.attach(I1[-1]) + norm_v(X[1])/2
         
     
     @property
@@ -128,7 +128,7 @@ class EnergyGradient(Operator):
         Ihat = self.operator.reg_param * self.operator.attach.gradient(I[-1])
         
         # Create the gradient op
-        grad_op = Gradient(domain=self.operator.space, method='forward',pad_mode='symmetric')
+        grad_op = Gradient(domain=self.operator.space, method='forward',pad_mode='constant', pad_const = 0)
         # Create the divergence op
         div_op = -grad_op.adjoint
 
@@ -152,4 +152,4 @@ class EnergyGradient(Operator):
         
         Km = (2 * np.pi) ** (dim / 2.0) * self.vectorial_ft_fit_op.inverse(self.vectorial_ft_fit_op(m[0]) * self.ft_kernel_fitting)
         
-        return Km+mhat
+        return Km - mhat
