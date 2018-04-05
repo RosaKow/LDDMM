@@ -152,4 +152,4 @@ class EnergyGradient(Operator):
         
         Km = (2 * np.pi) ** (dim / 2.0) * self.vectorial_ft_fit_op.inverse(self.vectorial_ft_fit_op(m[0]) * self.ft_kernel_fitting)
         
-        return Km - mhat
+        return Km + mhat
