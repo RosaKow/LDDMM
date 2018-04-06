@@ -157,39 +157,6 @@ def visualize_momentum(m,step=5):
     
     plt.quiver(x,y,u,v, scale=1)
 
-
-#if __name__ == '__main__':
-#    
-#    #load and prepare data
-#    I0, I1 = loadimages('jv')    
-#    space = I0.space
-#    
-#    forwardOp = DefForwardOp(space)
-#    data = forwardOp(I1)
-#    
-#    norm = odl.solvers.L2NormSquared(forwardOp.range)
-#    
-#    # set parameters
-#    N = 10      #number of integration steps
-#    reg_param = 5 # regularisation parameter
-#    sigma = 5   # gaussian convolution kernel parameter
-#    
-#    # define energy functional
-#    shoot = so.Shooting(N, kernel, space)
-#    energy = EnergyFunctional.Energy(shoot, forwardOp, norm, data, space, kernel, reg_param)
-#    
-#    # do registration
-#    m = space.tangent_bundle.zero()
-#    X = [I0, m]
-#    X = gradientdescent(X)
-#    
-#    # visualisation
-#    I0.show('template image')
-#    I1.show('reference image')
-#    (I1-shoot(X)[0][-1]).show('difference between deformed template / reference')        
-#    shoot(X)[0][-1].show('deformed image')
-
-
 if __name__ == '__main__':
     
     #load and prepare data
